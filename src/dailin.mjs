@@ -19,16 +19,18 @@ document.querySelector("#foreground").append($dailin);
 let lastForward = false;
 let lastIdle = true;
 export function update() {
-  const isXMoving = state.ls.x !== 0;
-  const isYMoving = state.ls.y !== 0;
+  const lsx = state.ls.x;
+  const lsy = state.ls.y;
+  const isXMoving = lsx !== 0;
+  const isYMoving = lsy !== 0;
   const isIdle = !(isXMoving || isYMoving);
   const isForwardChanged = dailin.forward !== lastForward;
   const isIdleChanged = isIdle !== lastIdle;
   if (isXMoving) {
-    dailin.forward = state.ls.x >= 0;
+    dailin.forward = lsx >= 0;
   }
-  dailin.pos.x += state.ls.x;
-  dailin.pos.y += -state.ls.y;
+  dailin.pos.x += lsx;
+  dailin.pos.y += -lsy;
   $dailin.style.left = dailin.pos.x + "px";
   $dailin.style.top = dailin.pos.y + "px";
   const shouldUpdateImage = isIdleChanged || isForwardChanged;
